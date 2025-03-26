@@ -20,11 +20,11 @@ const Uncontrolledform = () => {
         <form onSubmit={handleSubmit}>
             <div>
             <label htmlFor="name">Name</label>
-            <input type="text" name="name" id="name" ref={nameRef}/>
+            <input type="text" name="name" id="name" ref={nameRef} required/>
             </div>
             <div>
                 <p>Favourite color</p>
-                <select name="color" id="color" ref={colorRef}>
+                <select name="color" id="color" ref={colorRef} required>
                     <option value="red">Red</option>
                     <option value="blue">Blue</option>
                     <option value="green">Green</option>
