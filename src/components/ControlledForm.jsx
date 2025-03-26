@@ -12,6 +12,9 @@ const [formData, setFormData] = useState({
     message:''
 })
 
+const [phone, setPhone] = useState('')
+const [phoneError,setPhoneError] = useState('')
+
 const [colors, setColors] = useState([{
     name:"Blue", isChecked:false,
 },
@@ -44,6 +47,17 @@ const handleChange = (e) => {
     setFormData((prevFormData)=> ({...prevFormData, [name]:value}))
 
 }
+
+const handlePhoneChange = (e) => {
+const value = e.target.value
+setPhone(value)
+if (value.length <10){
+    setPhoneError("Phone number should be 10 digits")
+}
+else {
+    setPhoneError('')
+}
+}
   return (
     <div>
         <h2>Controller Form</h2>
@@ -55,6 +69,13 @@ const handleChange = (e) => {
         <div>
             <label htmlFor="email">Email:</label>
             <input type="text" name='email' id='email' value={formData.email} onChange={handleChange} />
+        </div>
+        <div>
+            <label htmlFor='phone'>Phone:</label>
+            <input type="phone" name="phone" id="phone" value={phone} onChange={handlePhoneChange}/>   
+            {
+                phoneError && <p style={{color:'red'}}>{phoneError}</p>
+            }
         </div>
         <div>
             <label htmlFor="message">Message</label>
