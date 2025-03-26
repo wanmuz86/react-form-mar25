@@ -33,7 +33,14 @@ const handleColorChanged = (val) => {
 }
 
 const handleChange = (e) => {
+
+    // Object destructuring
+    // name = e.target.name // name, email, message, gender
+    // value = e.target.value // aa,aaa@gmail.com,aa,female
     const {name, value} = e.target;
+    // Object Spread operator
+    // Update the state with the new value
+  // [] is used to evaluate the variable name name, email , message  instead "name"
     setFormData((prevFormData)=> ({...prevFormData, [name]:value}))
 
 }
