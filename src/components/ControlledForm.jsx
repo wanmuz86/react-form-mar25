@@ -15,6 +15,8 @@ const [formData, setFormData] = useState({
 const [phone, setPhone] = useState('')
 const [phoneError,setPhoneError] = useState('')
 
+const [formError,setFormError] = useState({name:null, email:null, message:null})
+
 const [colors, setColors] = useState([{
     name:"Blue", isChecked:false,
 },
@@ -58,17 +60,53 @@ else {
     setPhoneError('')
 }
 }
+
+const handleClick = () => {
+    // Regex for email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    const error  = {name:null, email:null, message:null}
+    let hasError = false
+
+    if (formData.name === '' || formData.name.length < 3){
+        error.name = 'Name is required and needs to be more than 3'
+        hasError = true
+    }
+    if (formData.email === '' || !emailRegex.test(formData.email)){
+        error.email = 'Email is required and should be in the correct format'
+        hasError = true
+    }
+    if (formData.message === '' || formData.message.length < 10){
+        error.message = 'Message is required and should be more than 10 characters'
+        hasError = true
+    }
+    setFormError(error)
+
+    if (!hasError){
+        console.log("All OK can call API")
+    }
+
+}
   return (
     <div>
         <h2>Controller Form</h2>
+     
+       
+    
         <div>
         <label htmlFor="name">Name:</label>
         <input type="text" name='name' id='name' 
         value={formData.name} onChange={handleChange}/>
+         {
+            formError.name && <p style={{color:'red'}}>{formError.name}</p>
+         }
         </div>
         <div>
             <label htmlFor="email">Email:</label>
             <input type="text" name='email' id='email' value={formData.email} onChange={handleChange} />
+            {
+                formError.email && <p style={{color:'red'}}>{formError.email}</p>
+            }
         </div>
         <div>
             <label htmlFor='phone'>Phone:</label>
@@ -80,6 +118,9 @@ else {
         <div>
             <label htmlFor="message">Message</label>
             <textarea name="message" id="message" value={formData.message} onChange={handleChange}></textarea>
+            {
+                formError.message && <p style={{color:'red'}}>{formError.message}</p>   
+            }
         </div>
         <div>
         {
@@ -113,7 +154,7 @@ else {
                     colors.filter(val => val.isChecked === true).map(val => val.name).join(',')
                 }
             </p>
-            <button onClick={()=>console.log(formData)}>Show Data</button>
+            <button onClick={handleClick}>Show Data</button>
         </div>
     </div>
   )
