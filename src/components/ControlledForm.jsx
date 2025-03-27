@@ -46,7 +46,10 @@ const handleChange = (e) => {
     // Object Spread operator
     // Update the state with the new value
   // [] is used to evaluate the variable name name, email , message  instead "name"
-    setFormData((prevFormData)=> ({...prevFormData, [name]:value}))
+    setFormData((prevFormData)=> {
+        ({...prevFormData, [name]:value})
+        console.log(formData)
+    })
 
 }
 
